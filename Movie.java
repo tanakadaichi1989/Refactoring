@@ -4,22 +4,37 @@ public class Movie {
     public static final int NEW_RELEASE = 1;
 
     private String _title;
-    private int _priceCode;
+    private Price _price;
+    private double amount;
 
     public Movie(String title, int priceCode) {
         _title = title;
-        _priceCode = priceCode;
+        setPriceCode(priceCode);
+    }
+
+    public void setPriceCode(int priceCode) {
+        switch(priceCode){
+            case REGULAR:
+                _price = new RegularPrice();
+                break;
+            case NEW_RELEASE:
+                _price = new NewReleasePrice();
+                break;
+            case CHILDRENS:
+                _price = new ChildrensPrice();
+                break;
+        }
     }
 
     public int getPriceCode(){
-        return _priceCode;
-    }
-
-    public void setPriceCode(int arg){
-        _priceCode = arg;
+        return _price.getPriceCode();
     }
 
     public String getTitle(){
         return _title;
+    }
+
+    public double getAmount(int daysRented){
+        return _price.getAmount(daysRented);
     }
 }
